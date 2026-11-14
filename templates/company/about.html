@@ -1,0 +1,14 @@
+{% extends "company/base.html" %}
+{% load static %}
+{% block title %}About — Domikeep{% endblock %}
+{% block content %}
+  <div class="split">
+    <div>
+      <h1>About</h1>
+      <p class="lede">Domikeep Technologies Inc. builds home security and automation for people who want the system in the house, and a shop for the devices that go in it.</p>
+      <p>The company site is this address. The shop is on its own address, with Canadian prices, stock, and shipping. Installation and other services are quoted, not dropped in a box.</p>
+      <p><a class="pill" href="{{ shop_origin }}">Open the shop</a></p>
+    </div>
+    <img class="hero-photo" src="{% static 'photos/about-house.jpg' %}" alt="A house and a maple tree in morning light.">
+  </div>
+{% endblock %}

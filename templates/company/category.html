@@ -1,0 +1,28 @@
+{% extends "company/base.html" %}
+{% load photos static %}
+{% block title %}{{ category.name }} — Domikeep{% endblock %}
+{% block content %}
+  <p class="eyebrow">Products</p>
+  <div class="split intro">
+    <div>
+      <h1>{{ category.name }}</h1>
+      {% if not products %}
+        <p>Nothing in {{ category.name }} is published yet. Staff add items in the admin.</p>
+      {% endif %}
+    </div>
+    {% include "includes/category_photo.html" with category=category %}
+  </div>
+  {% if products %}
+    <div class="cards">
+      {% for product in products %}
+        <a class="card photo" href="{% url 'product' category.slug product.slug %}">
+          {% include "includes/shot.html" with product=product %}
+          <div class="pad">
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.summary }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

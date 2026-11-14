@@ -1,0 +1,9 @@
+[Unit]
+Description=Backup Domikeep database and uploads
+
+[Service]
+Type=oneshot
+User=domikeep
+Group=domikeep
+EnvironmentFile=/etc/domikeep.env
+ExecStart=/opt/domikeep/.venv/bin/python /opt/domikeep/deploy/backup.py

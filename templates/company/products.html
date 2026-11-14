@@ -1,0 +1,14 @@
+{% extends "company/base.html" %}
+{% block title %}Products — Domikeep{% endblock %}
+{% block content %}
+  <h1>Products</h1>
+  <p class="lede">Each category is a kind of device or a service Domikeep installs. Open one to read the published items.</p>
+  <div class="cards">
+    {% for category in categories %}
+      <a class="card photo" href="{% url 'category' category.slug %}">
+        {% include "includes/category_photo.html" with category=category %}
+        <div class="pad"><h2>{{ category.name }}</h2></div>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}

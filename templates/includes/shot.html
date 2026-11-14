@@ -1,0 +1,9 @@
+{% load photos static %}
+{% for shot in product.images.all %}
+  {% if forloop.first %}
+    <img class="shot" src="{{ shot.image.url }}" alt="{{ shot.alt_text|default:product.name }}">
+  {% endif %}
+{% empty %}
+  {% category_photo product.category.slug as photo %}
+  <img class="shot" src="{% static photo %}" alt="{{ product.name }}">
+{% endfor %}

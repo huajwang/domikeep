@@ -1,0 +1,46 @@
+{% extends "shop/base.html" %}
+{% load money %}
+{% block title %}{{ product.name }} — Domikeep shop{% endblock %}
+{% block content %}
+  <p class="eyebrow"><a href="{% url 'category' product.category.slug %}">{{ product.category.name }}</a></p>
+  <div class="split">
+    {% include "includes/gallery.html" with product=product %}
+    <div>
+      <h1>{{ product.name }}</h1>
+      <p class="lede">{{ product.summary }}</p>
+      {% if product.is_goods %}
+        <p class="price">{{ product.price_cents|cad }}</p>
+        <p>Canadian dollars, before tax.</p>
+        {% if product.stock == 0 %}
+          <p>Out of stock.</p>
+        {% else %}
+          <form method="post" action="{% url 'cart_add' product.id %}">
+            {% csrf_token %}
+            <label for="quantity">Quantity</label>
+            <input id="quantity" name="quantity" type="number" min="1" max="99" value="1">
+            <button type="submit">Add to cart</button>
+          </form>
+        {% endif %}
+      {% else %}
+        <p>This is arranged as a quote. It is not shipped as a box.</p>
+        <form method="post" action="{% url 'quote_for' product.id %}">
+          {% csrf_token %}
+          {% include "includes/quote_fields.html" %}
+          <button type="submit">Request a quote</button>
+        </form>
+      {% endif %}
+      {{ product.description|linebreaks }}
+      {% if product.specs %}
+        <table class="specs">
+          <caption>Specs</caption>
+          {% for spec in product.specs %}
+            <tr>
+              <th scope="row">{{ spec.label }}</th>
+              <td>{{ spec.value }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,3 @@
+{% load photos static %}
+{% category_photo category.slug as photo %}
+<img src="{% static photo %}" alt="">

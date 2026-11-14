@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Domikeep{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'site.css' %}">
+</head>
+<body data-site="{{ site_kind }}">
+  <a class="skip" href="#content">Skip to content</a>
+  {% block header %}{% endblock %}
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <main id="content">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <p>Domikeep Technologies Inc.</p>
+    <p>
+      {% if contact_phone %}<a href="tel:{{ contact_phone }}">{{ contact_phone }}</a>{% endif %}
+      <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+    </p>
+  </footer>
+</body>
+</html>

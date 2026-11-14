@@ -1,0 +1,47 @@
+{% extends "shop/base.html" %}
+{% load money %}
+{% block title %}Cart — Domikeep shop{% endblock %}
+{% block content %}
+  <h1>Cart</h1>
+  {% if canceled %}
+    <p>Checkout was canceled. The cart is unchanged.</p>
+  {% endif %}
+  {% if lines %}
+    <table class="cart">
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for line in lines %}
+          <tr>
+            <td><a href="{% url 'product' line.product.slug %}">{{ line.product.name }}</a></td>
+            <td>
+              <form method="post" action="{% url 'cart_update' line.product.id %}">
+                {% csrf_token %}
+                <label class="visually-hidden" for="qty-{{ line.product.id }}">Quantity for {{ line.product.name }}</label>
+                <input id="qty-{{ line.product.id }}" name="quantity" type="number" min="0" max="99" value="{{ line.quantity }}">
+                <button type="submit">Update</button>
+              </form>
+            </td>
+            <td>{{ line.line_total|cad }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p>Subtotal {{ subtotal|cad }}</p>
+    <p>Shipping {{ shipping|cad }}</p>
+    <p class="price">Total {{ total|cad }}</p>
+    <p>Tax is added when Domikeep’s GST/HST setup is connected to Stripe Tax.</p>
+    <form method="post" action="{% url 'checkout' %}">
+      {% csrf_token %}
+      <button type="submit">Checkout</button>
+    </form>
+  {% else %}
+    <p>The cart is empty.</p>
+    <a class="pill" href="{% url 'home' %}">Browse categories</a>
+  {% endif %}
+{% endblock %}

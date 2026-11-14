@@ -1,0 +1,36 @@
+{% extends "shop/base.html" %}
+{% load money %}
+{% block title %}Order — Domikeep shop{% endblock %}
+{% block content %}
+  <h1>Order</h1>
+  <p>Status: {{ order.get_status_display }}</p>
+  {% if order.status == "paid" %}
+    <p>Payment is confirmed. A receipt was collected by Stripe.</p>
+  {% else %}
+    <p>Payment is not confirmed yet.</p>
+  {% endif %}
+  <table class="cart">
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in order.lines.all %}
+        <tr>
+          <td>{{ line.product_name }}</td>
+          <td>{{ line.quantity }}</td>
+          <td>{{ line.line_total_cents|cad }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p>Subtotal {{ order.subtotal_cents|cad }}</p>
+  <p>Shipping {{ order.shipping_cents|cad }}</p>
+  <p class="price">Total {{ order.total_cents|cad }}</p>
+  {% if order.ship_line1 %}
+    <p>{{ order.ship_name }}<br>{{ order.ship_line1 }}{% if order.ship_line2 %}<br>{{ order.ship_line2 }}{% endif %}<br>{{ order.ship_city }} {{ order.ship_region }} {{ order.ship_postal }}</p>
+  {% endif %}
+{% endblock %}

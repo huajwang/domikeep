@@ -1,0 +1,9 @@
+{% load photos static %}
+<div class="gallery">
+  {% for shot in product.images.all %}
+    <img src="{{ shot.image.url }}" alt="{{ shot.alt_text|default:product.name }}">
+  {% empty %}
+    {% category_photo product.category.slug as photo %}
+    <img src="{% static photo %}" alt="{{ product.name }}">
+  {% endfor %}
+</div>

@@ -1,0 +1,28 @@
+{% extends "company/base.html" %}
+{% load static %}
+{% block title %}Solutions — Domikeep{% endblock %}
+{% block content %}
+  <h1>Solutions</h1>
+  <p class="lede">These are the parts of a home Domikeep sets up. They are offers, not a list of past clients.</p>
+  <article id="entry" class="story photo">
+    <img src="{% static 'photos/room-entry.jpg' %}" alt="">
+    <div class="pad">
+      <h2>Entry</h2>
+      <p>A lock, a doorbell camera, and a phone notification when the door opens. The lock still works from the keypad when the network is down.</p>
+    </div>
+  </article>
+  <article id="rooms" class="story photo">
+    <img src="{% static 'photos/room-living.jpg' %}" alt="">
+    <div class="pad">
+      <h2>Living spaces</h2>
+      <p>Lights and sensors for the rooms you actually use. A scene can turn the interior lights off when you leave.</p>
+    </div>
+  </article>
+  <article id="outside" class="story photo">
+    <img src="{% static 'photos/room-outside.jpg' %}" alt="">
+    <div class="pad">
+      <h2>Outside</h2>
+      <p>Cameras at the door and the driveway, with an alarm that can be armed from the phone. Live video stays on the house system.</p>
+    </div>
+  </article>
+{% endblock %}

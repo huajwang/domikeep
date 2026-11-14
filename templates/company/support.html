@@ -1,0 +1,28 @@
+{% extends "company/base.html" %}
+{% load money %}
+{% block title %}Support — Domikeep{% endblock %}
+{% block content %}
+  <h1>Support</h1>
+  <div class="cards">
+    <section class="card">
+      <h2>Shipping</h2>
+      <p>Goods ship in Canada for {{ flat_shipping|cad }}. Orders of goods from {{ free_shipping|cad }} ship free. Prices on the shop are in Canadian dollars, before tax.</p>
+    </section>
+    <section class="card">
+      <h2>Warranty</h2>
+      <p>A device warranty comes from its manufacturer. Write to us and we will help with the claim.</p>
+    </section>
+    <section class="card">
+      <h2>Returns</h2>
+      <p>Email {{ contact_email }} about an unused item and we will arrange the return.</p>
+    </section>
+  </div>
+  <section class="story">
+    <h2>Contact</h2>
+    <form method="post">
+      {% csrf_token %}
+      {% include "includes/quote_fields.html" %}
+      <button type="submit">Send</button>
+    </form>
+  </section>
+{% endblock %}

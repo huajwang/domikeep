@@ -1,0 +1,15 @@
+{% extends "shop/base.html" %}
+{% block title %}Quote — Domikeep shop{% endblock %}
+{% block content %}
+  <h1>Request a quote</h1>
+  {% if service %}
+    <p class="lede">{{ service.name }}</p>
+  {% else %}
+    <p class="lede">Tell us which service you want. Installation and support plans are quoted, not shipped.</p>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    {% include "includes/quote_fields.html" %}
+    <button type="submit">Send</button>
+  </form>
+{% endblock %}

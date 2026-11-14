@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+{% load money static %}
+{% block title %}Shop — Domikeep{% endblock %}
+{% block content %}
+  <section class="hero">
+    <div>
+      <h1>Shop</h1>
+      <p class="lede">Devices in Canadian dollars, before tax. Services are quoted.</p>
+      <p>Shipping in Canada is {{ flat_shipping_cents|cad }}. Free from {{ free_shipping_cents|cad }}.</p>
+    </div>
+    <img class="hero-photo" src="{% static 'photos/hero-home.jpg' %}" alt="Front door of a house in late afternoon light.">
+  </section>
+  <div class="cards">
+    {% for category in categories %}
+      <a class="card photo" href="{% url 'category' category.slug %}">
+        {% include "includes/category_photo.html" with category=category %}
+        <div class="pad"><h2>{{ category.name }}</h2></div>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}

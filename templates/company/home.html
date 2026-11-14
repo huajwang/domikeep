@@ -1,0 +1,77 @@
+{% extends "company/base.html" %}
+{% load static %}
+{% block title %}Domikeep Technologies Inc.{% endblock %}
+{% block content %}
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Home security and automation</p>
+      <h1>The house stays in your hands.</h1>
+      <p class="lede">Domikeep Technologies Inc. supplies the devices and sets up the system that watches, locks, and lights a home.</p>
+      <p class="actions">
+        <a class="pill" href="{% url 'products' %}">See the lineup</a>
+        <a class="text-link" href="{{ shop_origin }}">Buy on the shop</a>
+      </p>
+    </div>
+    <img class="hero-photo" src="{% static 'photos/hero-home.jpg' %}" alt="Front door of a house in late afternoon light.">
+  </section>
+
+  {% if featured %}
+    <section class="band">
+      <a class="card photo featured" href="{% url 'product' featured.category.slug featured.slug %}">
+        {% include "includes/shot.html" with product=featured %}
+        <div class="pad">
+          <p class="eyebrow">Featured</p>
+          <h2>{{ featured.name }}</h2>
+          <p>{{ featured.summary }}</p>
+        </div>
+      </a>
+    </section>
+  {% endif %}
+
+  <section class="band">
+    <h2>Rooms</h2>
+    <div class="cards">
+      <a class="card photo" href="{% url 'solutions' %}#entry">
+        <img src="{% static 'photos/room-entry.jpg' %}" alt="">
+        <div class="pad">
+          <h3>Entry</h3>
+          <p>See who is there, and lock the door from the phone.</p>
+        </div>
+      </a>
+      <a class="card photo" href="{% url 'solutions' %}#rooms">
+        <img src="{% static 'photos/room-living.jpg' %}" alt="">
+        <div class="pad">
+          <h3>Living spaces</h3>
+          <p>Lights and sensors that follow how the room is used.</p>
+        </div>
+      </a>
+      <a class="card photo" href="{% url 'solutions' %}#outside">
+        <img src="{% static 'photos/room-outside.jpg' %}" alt="">
+        <div class="pad">
+          <h3>Outside</h3>
+          <p>Cameras and alarms for the driveway and the doors.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Lineup</h2>
+    <div class="cards">
+      {% for category in categories %}
+        <a class="card photo" href="{% url 'category' category.slug %}">
+          {% include "includes/category_photo.html" with category=category %}
+          <div class="pad"><h3>{{ category.name }}</h3></div>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="band support-strip">
+    <div>
+      <h2>Support stays with the company.</h2>
+      <p>Shipping, warranty help, and a person to write to.</p>
+    </div>
+    <a class="pill" href="{% url 'support' %}">Support</a>
+  </section>
+{% endblock %}

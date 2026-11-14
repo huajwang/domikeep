@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block header %}
+  <header class="top">
+    <a class="mark" href="{% url 'home' %}">Domikeep</a>
+    <nav class="links" aria-label="Company">
+      <a href="{% url 'products' %}">Products</a>
+      <a href="{% url 'solutions' %}">Solutions</a>
+      <a href="{% url 'support' %}">Support</a>
+      <a href="{% url 'about' %}">About</a>
+      <a class="pill" href="{{ shop_origin }}">Shop</a>
+    </nav>
+  </header>
+{% endblock %}

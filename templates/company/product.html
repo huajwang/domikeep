@@ -1,0 +1,31 @@
+{% extends "company/base.html" %}
+{% block title %}{{ product.name }} — Domikeep{% endblock %}
+{% block content %}
+  <p class="eyebrow"><a href="{% url 'category' product.category.slug %}">{{ product.category.name }}</a></p>
+  <div class="split">
+    <div>
+      {% include "includes/gallery.html" with product=product %}
+    </div>
+    <div>
+      <h1>{{ product.name }}</h1>
+      <p class="lede">{{ product.summary }}</p>
+      {{ product.description|linebreaks }}
+      {% if product.specs %}
+        <table class="specs">
+          <caption>Specs</caption>
+          {% for spec in product.specs %}
+            <tr>
+              <th scope="row">{{ spec.label }}</th>
+              <td>{{ spec.value }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
+      {% if product.is_goods %}
+        <a class="pill" href="{{ shop_origin }}/p/{{ product.slug }}/">Buy on the shop</a>
+      {% else %}
+        <a class="pill" href="{{ shop_origin }}/quote/{{ product.id }}/">Request a quote</a>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "shop/base.html" %}
+{% load money %}
+{% block title %}{{ category.name }} — Domikeep shop{% endblock %}
+{% block content %}
+  <div class="split intro">
+    <div>
+      <h1>{{ category.name }}</h1>
+      {% if not products %}
+        <p>Nothing in {{ category.name }} is published yet.</p>
+      {% endif %}
+    </div>
+    {% include "includes/category_photo.html" with category=category %}
+  </div>
+  {% if products %}
+    <div class="cards">
+      {% for product in products %}
+        <a class="card photo" href="{% url 'product' product.slug %}">
+          {% include "includes/shot.html" with product=product %}
+          <div class="pad">
+            <h2>{{ product.name }}</h2>
+            {% if product.is_goods %}
+              <p class="price">{{ product.price_cents|cad }}</p>
+              <p>{% if product.stock == 0 %}Out of stock{% elif product.stock %}{{ product.stock }} in stock{% else %}In stock{% endif %}</p>
+            {% else %}
+              <p>Quoted service</p>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}
